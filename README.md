@@ -1,0 +1,1 @@
+# Akilli-Tarim-Yonetim-Sistemi
