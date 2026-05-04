@@ -67,3 +67,42 @@ msgstr "UYARI"
 
 msgid "SUCCESS"
 msgstr "BAŞARILI"
+
+msgid "System Avg Temp"
+msgstr "SİSTEM ORT. SICAKLIK"
+
+msgid "System Avg Moisture"
+msgstr "SİSTEM ORT. NEM"
+
+msgid "Active Zones (Parcels)"
+msgstr "Aktif Parseller (Bölgeler)"
+
+msgid "IRRIGATE THIS ZONE"
+msgstr "BU PARSELİ SULA"
+
+msgid "Temp"
+msgstr "Sıcaklık"
+
+msgid "Thresh"
+msgstr "Eşik"
+
+msgid "Download Report"
+msgstr "Raporu İndir"
+
+msgid "Mevcut Eşik"
+msgstr "Mevcut Eşik"
+
+msgid "için Sulama Başlatıldı"
+msgstr "için Sulama Başlatıldı"
+
+msgid "için Sulama Tamamlandı"
+msgstr "için Sulama Tamamlandı"
+
+msgid "bölgesinde kritik nem seviyesi!"
+msgstr "bölgesinde kritik nem seviyesi!"
+
+msgid "Eşik değeri güncellendi"
+msgstr "Eşik değeri güncellendi"
+
+msgid "Profil güncellendi"
+msgstr "Profil güncellendi"

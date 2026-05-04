@@ -24,6 +24,7 @@
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
             --accent-green: #10b981;
+            --sidebar-width: 250px;
         }
 
         body {
@@ -37,18 +38,34 @@
                 radial-gradient(at 100% 0%, rgba(15, 23, 42, 1) 0, transparent 50%);
             background-attachment: fixed;
             padding-bottom: 2rem;
+            display: flex;
         }
 
-        /* Glassmorphism Navbar */
-        .navbar-custom {
+        html { scroll-behavior: smooth; }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            width: var(--sidebar-width);
             background: var(--surface-glass);
             backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            padding: 1.2rem 0;
-            position: sticky;
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
+            height: 100vh;
+            position: fixed;
             top: 0;
-            z-index: 1000;
+            left: 0;
+            display: flex;
+            flex-direction: column;
+            padding: 1.5rem 1rem;
+            z-index: 1050;
+            transition: transform 0.3s ease;
+        }
+
+        .sidebar-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 2.5rem;
+            padding: 0 10px;
         }
 
         .brand-text {
@@ -57,6 +74,69 @@
             background: linear-gradient(to right, #10b981, #3b82f6);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            font-size: 1.4rem;
+            margin: 0;
+        }
+
+        .nav-link {
+            color: var(--text-muted);
+            border-radius: 12px;
+            padding: 12px 15px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 600;
+            transition: all 0.3s;
+            text-decoration: none;
+            margin-bottom: 0.5rem;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-main);
+        }
+
+        .nav-link.active {
+            background: rgba(59, 130, 246, 0.1);
+            color: #3b82f6;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+        }
+
+        /* Main Content Wrapper */
+        .main-content {
+            margin-left: var(--sidebar-width);
+            flex-grow: 1;
+            padding: 2rem;
+            min-height: 100vh;
+            width: calc(100% - var(--sidebar-width));
+        }
+
+        /* Breadcrumbs */
+        .breadcrumb-container {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+        }
+        .breadcrumb-container a {
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .breadcrumb-container a:hover { color: var(--text-main); }
+        .breadcrumb-separator { color: rgba(255, 255, 255, 0.2); }
+        .breadcrumb-current { color: var(--text-main); font-weight: 600; }
+
+        /* Top Bar */
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 15px;
         }
 
         /* Status Indicator */
@@ -71,7 +151,6 @@
             font-size: 0.85rem;
             font-weight: 600;
             color: var(--accent-green);
-            white-space: nowrap;
         }
 
         .status-dot {
@@ -89,77 +168,73 @@
             100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
         }
 
-        /* KPI Cards */
-        .kpi-card {
+        /* Form & Input Effects */
+        .form-control-neon {
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-main);
+            border-radius: 10px;
+            padding: 10px 15px;
+            transition: all 0.3s;
+        }
+        .form-control-neon:focus {
+            background: rgba(0, 0, 0, 0.3);
+            border-color: var(--accent-green);
+            box-shadow: 0 0 12px rgba(16, 185, 129, 0.3);
+            color: var(--text-main);
+        }
+        
+        /* Glass Panel Reusable */
+        .glass-panel {
             background: var(--surface-dark);
             border: 1px solid rgba(255, 255, 255, 0.05);
             border-radius: 20px;
-            padding: 2rem;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .kpi-card:hover {
-            transform: translateY(-5px);
-            border-color: rgba(255, 255, 255, 0.1);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-        }
-
-        .kpi-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 4px;
+            padding: 1.5rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
             height: 100%;
         }
 
-        .kpi-card.temp::before { background: var(--temp-color); box-shadow: 0 0 15px var(--temp-color); }
-        .kpi-card.moist::before { background: var(--moist-color); box-shadow: 0 0 15px var(--moist-color); }
-
-        .kpi-title {
-            color: var(--text-muted);
-            font-size: 0.85rem;
+        .panel-header {
+            font-size: 1.1rem;
             font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            margin-bottom: 0.5rem;
+            color: #e2e8f0;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
+
+        /* Tables */
+        .table-custom {
+            color: var(--text-main);
+            vertical-align: middle;
+            margin-bottom: 0;
+        }
+        .table-custom th {
+            color: var(--text-muted);
+            font-weight: 600;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+        }
+        .table-custom td {
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            font-size: 0.95rem;
+        }
+        .table-custom tr:last-child td { border-bottom: none; }
 
         .kpi-value {
-            font-size: 3.5rem;
+            font-size: 3rem;
             font-weight: 800;
-            margin: 0;
-            line-height: 1;
             background: linear-gradient(to right, #ffffff, #cbd5e1);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-
-        .kpi-unit {
-            font-size: 1.2rem;
-            color: var(--text-muted);
-            font-weight: 600;
-        }
-
-        .icon-wrapper {
-            padding: 15px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .icon-wrapper.temp-icon { background: rgba(244, 63, 94, 0.1); }
-        .icon-wrapper.moist-icon { background: rgba(14, 165, 233, 0.1); }
-
-        /* Irrigation Button */
+        
+        .kpi-unit { font-size: 1.2rem; color: var(--text-muted); font-weight: 600; }
+        
         .btn-irrigate {
             background: rgba(16, 185, 129, 0.15);
             border: 1px solid rgba(16, 185, 129, 0.4);
@@ -167,313 +242,338 @@
             padding: 12px 20px;
             border-radius: 12px;
             font-weight: 600;
-            backdrop-filter: blur(8px);
             transition: all 0.3s;
             width: 100%;
-            text-align: center;
             cursor: pointer;
-            margin-top: 1.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            box-shadow: 0 0 15px rgba(16, 185, 129, 0.1);
+            display: flex; align-items: center; justify-content: center; gap: 8px;
         }
-
         .btn-irrigate:hover:not(:disabled) {
             background: rgba(16, 185, 129, 0.3);
-            box-shadow: 0 0 20px rgba(16, 185, 129, 0.4);
-            color: #fff;
-            border-color: var(--accent-green);
+            color: #fff; border-color: var(--accent-green);
+            box-shadow: 0 0 15px rgba(16, 185, 129, 0.3);
         }
+        .btn-irrigate:disabled { opacity: 0.5; cursor: not-allowed; }
 
-        .btn-irrigate:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            background: rgba(148, 163, 184, 0.1);
-            color: var(--text-muted);
-            border-color: rgba(148, 163, 184, 0.2);
-            box-shadow: none;
-        }
-
-        /* Pump Animation */
-        .pump-active {
-            animation: pumpPulse 1s infinite;
-        }
-        
-        @keyframes pumpPulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-            100% { transform: scale(1); }
-        }
-
-        /* Chart Container */
-        .chart-container {
-            background: var(--surface-dark);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 24px;
-            padding: 1.5rem;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-        }
-
-        .chart-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1.5rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .chart-title {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: #e2e8f0;
-            margin: 0;
-        }
-
-        .chart-wrapper {
-            position: relative;
-            height: 400px;
-            width: 100%;
-        }
-
-        /* Logs Container */
-        .log-container {
-            max-height: 250px;
-            overflow-y: auto;
-            padding-right: 10px;
-        }
-
-        .log-container::-webkit-scrollbar { width: 6px; }
+        .log-container { max-height: 250px; overflow-y: auto; padding-right: 10px; }
+        .log-container::-webkit-scrollbar { width: 4px; }
         .log-container::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 10px; }
-
-        .log-item {
-            padding: 12px;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 0.9rem;
-            gap: 15px;
-        }
-
-        .log-item:last-child { border-bottom: none; }
-        .log-time { color: var(--text-muted); font-family: monospace; font-size: 0.85rem; }
-        
-        .log-desc {
-            flex-grow: 1;
-            color: var(--text-main);
-        }
-
-        .log-badge {
-            font-size: 0.75rem;
-            padding: 4px 8px;
-            border-radius: 6px;
-            font-weight: 600;
-            min-width: 80px;
-            text-align: center;
-        }
+        .log-item { padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 0.9rem; }
+        .log-time { color: var(--text-muted); font-family: monospace; font-size: 0.85rem; margin-right: 10px;}
+        .log-badge { font-size: 0.7rem; padding: 4px 8px; border-radius: 6px; font-weight: 600; }
 
         .log-INFO { background: rgba(59, 130, 246, 0.1); color: #3b82f6; border: 1px solid rgba(59, 130, 246, 0.2); }
         .log-WARNING { background: rgba(245, 158, 11, 0.1); color: #f59e0b; border: 1px solid rgba(245, 158, 11, 0.2); }
         .log-SUCCESS { background: rgba(16, 185, 129, 0.1); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.2); }
 
-        /* Fade In Animation */
-        .fade-in {
-            animation: fadeIn 0.8s ease-out forwards;
-            opacity: 0;
-        }
+        .fade-in { animation: fadeIn 0.6s ease-out forwards; opacity: 0; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(15px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Toast Tweaks */
-        .toast {
+        /* Modal Tweaks */
+        .modal-content {
             background: var(--surface-dark);
             border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 12px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-            backdrop-filter: blur(10px);
-        }
-
-        /* Lang Switcher */
-        .lang-btn {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: var(--text-muted);
-            padding: 6px 12px;
-            border-radius: 8px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        .lang-btn:hover {
-            background: rgba(255, 255, 255, 0.1);
             color: var(--text-main);
+            border-radius: 16px;
         }
-        .lang-form { margin: 0; display: inline-block; }
+        .modal-header { border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .modal-footer { border-top: 1px solid rgba(255,255,255,0.05); }
+
+        /* Responsive Sidebar */
+        @media (max-width: 991px) {
+            .sidebar { transform: translateX(-100%); }
+            .sidebar.show { transform: translateX(0); }
+            .main-content { margin-left: 0; width: 100%; }
+        }
     </style>
 </head>
 <body>
 
-<!-- CSRF Token for fetch requests -->
 {% csrf_token %}
+<input type="hidden" id="is_staff" value="{{ request.user.is_staff|yesno:'true,false' }}">
 
-<nav class="navbar-custom mb-4">
-    <div class="container d-flex justify-content-between align-items-center flex-wrap gap-2">
-        <div class="d-flex align-items-center gap-3">
-            <div style="width: 42px; height: 42px; background: rgba(16, 185, 129, 0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(16, 185, 129, 0.2);">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/>
-                    <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>
-                </svg>
-            </div>
-            <h4 class="mb-0 brand-text">ATYS <span style="font-weight: 400; color: #64748b; font-size: 0.9rem;" class="d-none d-sm-inline">| {% trans "Dashboard" %}</span></h4>
+<!-- Sidebar -->
+<aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand">
+        <div style="width: 36px; height: 36px; background: rgba(16, 185, 129, 0.1); border-radius: 10px; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(16, 185, 129, 0.2);">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/>
+            </svg>
         </div>
-        <div class="d-flex align-items-center gap-3">
-            <div class="status-container">
-                <span class="status-dot"></span> 
-                <span>{% trans "LIVE TELEMETRY" %}</span>
-            </div>
-            
-            <form action="{% url 'set_language' %}" method="post" class="lang-form">
-                {% csrf_token %}
-                <input name="next" type="hidden" value="{{ request.get_full_path }}">
-                <select name="language" onchange="this.form.submit()" class="lang-btn" style="appearance: none; outline: none; text-align: center;">
-                    {% get_current_language as LANGUAGE_CODE %}
-                    {% get_available_languages as LANGUAGES %}
-                    {% for lang in LANGUAGES %}
-                        <option value="{{ lang.0 }}" {% if lang.0 == LANGUAGE_CODE %}selected{% endif %}>
-                            {{ lang.0|upper }}
-                        </option>
-                    {% endfor %}
-                </select>
-            </form>
-        </div>
+        <h4 class="brand-text">ATYS</h4>
     </div>
-</nav>
-
-<div class="container">
-    <div class="row g-4 mb-4">
-        <!-- Temperature Card -->
-        <div class="col-md-6 fade-in" style="animation-delay: 0.1s;">
-            <div class="kpi-card temp">
-                <div class="d-flex justify-content-between align-items-center mb-2">
-                    <div>
-                        <p class="kpi-title">{% trans "Ambient Temperature" %}</p>
-                        <div class="d-flex align-items-baseline gap-1">
-                            <h1 id="temp-val" class="kpi-value">--</h1>
-                            <span class="kpi-unit">°C</span>
-                        </div>
-                    </div>
-                    <div class="icon-wrapper temp-icon">
-                        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--temp-color)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"/>
-                            <path d="M12 7v5"/>
-                        </svg>
-                    </div>
+    
+    <nav>
+        <a href="#" class="nav-link active" onclick="setActive(this)">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+            {% trans "Dashboard" %}
+        </a>
+        <a href="#" class="nav-link" onclick="setActive(this)">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+            {% trans "Live Telemetry" %}
+        </a>
+        {% if request.user.is_staff %}
+        <a href="#devices-section" class="nav-link" onclick="setActive(this)">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect><rect x="9" y="9" width="6" height="6"></rect><line x1="9" y1="1" x2="9" y2="4"></line><line x1="15" y1="1" x2="15" y2="4"></line><line x1="9" y1="20" x2="9" y2="23"></line><line x1="15" y1="20" x2="15" y2="23"></line><line x1="20" y1="9" x2="23" y2="9"></line><line x1="20" y1="14" x2="23" y2="14"></line><line x1="1" y1="9" x2="4" y2="9"></line><line x1="1" y1="14" x2="4" y2="14"></line></svg>
+            {% trans "Devices" %}
+        </a>
+        <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#userModal" onclick="setActive(this)">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+            {% trans "Users" %}
+        </a>
+        <a href="#settings-section" class="nav-link" onclick="setActive(this)">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+            {% trans "Settings" %}
+        </a>
+        {% endif %}
+    </nav>
+    
+    <div style="margin-top: auto;">
+        <!-- Profile Settings Trigger -->
+        <div class="d-flex align-items-center gap-2 mb-3" data-bs-toggle="modal" data-bs-target="#profileModal" style="cursor: pointer; padding: 10px; border-radius: 12px; background: rgba(255,255,255,0.05); transition: background 0.2s;">
+            <div style="width: 32px; height: 32px; border-radius: 50%; background: #3b82f6; display: flex; align-items: center; justify-content: center; font-weight: bold; {% if request.user.is_staff %}border: 2px solid #fbbf24;{% endif %}">
+                {{ request.user.username.0|upper }}
+            </div>
+            <div>
+                <div class="fw-bold" style="font-size: 0.9rem;">{{ request.user.username|default:"Guest" }}</div>
+                <div class="badge {% if request.user.is_staff %}bg-danger{% else %}bg-primary{% endif %} rounded-pill" style="font-size: 0.65rem;">
+                    {% if request.user.is_staff %}ADMIN{% else %}FARMER{% endif %}
                 </div>
             </div>
         </div>
         
-        <!-- Moisture Card & Controls -->
-        <div class="col-md-6 fade-in" style="animation-delay: 0.2s;">
-            <div class="kpi-card moist">
-                <div class="d-flex justify-content-between align-items-center">
-                    <div>
-                        <p class="kpi-title">{% trans "Soil Moisture" %}</p>
-                        <div class="d-flex align-items-baseline gap-1">
-                            <h1 id="moist-val" class="kpi-value">--</h1>
-                            <span class="kpi-unit">%</span>
-                        </div>
-                    </div>
-                    <div class="icon-wrapper moist-icon" id="pump-icon">
-                        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--moist-color)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/>
-                        </svg>
-                    </div>
+        <form action="{% url 'set_language' %}" method="post" class="w-100">
+            {% csrf_token %}
+            <input name="next" type="hidden" value="{{ request.get_full_path }}">
+            <select name="language" onchange="this.form.submit()" class="form-control form-control-sm form-control-neon w-100 text-center" style="cursor: pointer;">
+                {% get_current_language as LANGUAGE_CODE %}
+                {% get_available_languages as LANGUAGES %}
+                {% for lang in LANGUAGES %}
+                    <option value="{{ lang.0 }}" {% if lang.0 == LANGUAGE_CODE %}selected{% endif %}>
+                        {{ lang.1|upper }} ({{ lang.0|upper }})
+                    </option>
+                {% endfor %}
+            </select>
+        </form>
+    </div>
+</aside>
+
+<main class="main-content">
+    
+    <div class="d-lg-none mb-3">
+        <button class="btn btn-outline-light btn-sm" onclick="document.getElementById('sidebar').classList.toggle('show')">☰ Menu</button>
+    </div>
+
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div>
+            <div class="breadcrumb-container">
+                <a href="#">Home</a> <span class="breadcrumb-separator">/</span>
+                <a href="#">Devices</a> <span class="breadcrumb-separator">/</span>
+                <span class="breadcrumb-current">Calibration</span>
+            </div>
+            <h3 style="margin: 0;">{% trans "System Overview" %}</h3>
+        </div>
+        
+        <div class="d-flex align-items-center gap-3">
+            <!-- Weather Widget -->
+            <div id="weather-widget" class="d-flex align-items-center gap-2" style="background: rgba(255,255,255,0.05); padding: 8px 15px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.1);">
+                <span class="text-white small fw-bold me-1" style="letter-spacing: 0.5px;">{% trans "Dış Hava" %} (Elazığ):</span>
+                <span id="weather-icon">🌤️</span>
+                <span id="weather-temp" class="fw-bold">--°C</span>
+            </div>
+            <div class="status-container">
+                <span class="status-dot"></span> 
+                <span>{% trans "LIVE TELEMETRY" %}</span>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Rain Forecast Alert -->
+    <div id="rain-alert" class="alert alert-warning d-none fade-in mb-4" style="background: rgba(245, 158, 11, 0.1); border: 1px solid rgba(245, 158, 11, 0.3); color: #f59e0b;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="me-2"><path d="M20 16.2A4.5 4.5 0 0 0 17.5 8h-1.8A7 7 0 1 0 4 14.9"></path><path d="M16 14v6"></path><path d="M8 14v6"></path><path d="M12 16v6"></path></svg>
+        <strong>{% trans "Rain Forecasted:" %}</strong> {% trans "Irrigation Paused" %}
+    </div>
+
+    <div class="row g-4 mb-4">
+        <!-- Main Telemetry Cards -->
+        <div class="col-md-6 fade-in" style="animation-delay: 0.1s;">
+            <div class="glass-panel d-flex justify-content-between align-items-center" style="border-left: 4px solid var(--temp-color);">
+                <div>
+                    <p class="text-light text-uppercase fw-bold mb-1" style="font-size: 0.85rem; letter-spacing: 1px;">{% trans "SİSTEM ORT. SICAKLIK" %}</p>
+                    <span id="temp-val" class="kpi-value">--</span><span class="kpi-unit">°C</span>
                 </div>
-                <button id="btn-irrigate" class="btn-irrigate" onclick="startIrrigation()">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
-                    </svg>
-                    <span>{% trans "START IRRIGATION" %}</span>
-                </button>
+                <div style="background: rgba(244, 63, 94, 0.1); padding: 15px; border-radius: 50%;">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--temp-color)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"/><path d="M12 7v5"/></svg>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-6 fade-in" style="animation-delay: 0.2s;">
+            <div class="glass-panel d-flex justify-content-between align-items-center" style="border-left: 4px solid var(--moist-color);">
+                <div>
+                    <p class="text-light text-uppercase fw-bold mb-1" style="font-size: 0.85rem; letter-spacing: 1px;">{% trans "SİSTEM ORT. NEM" %}</p>
+                    <span id="avg-moist-val" class="kpi-value">--</span><span class="kpi-unit">%</span>
+                </div>
+                <div style="background: rgba(14, 165, 233, 0.1); padding: 15px; border-radius: 50%;">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--moist-color)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
+                </div>
             </div>
         </div>
     </div>
 
-    <div class="row g-4">
-        <!-- Analytics Chart -->
+    <!-- Parcel Grid View -->
+    <h5 class="mb-3">{% trans "Aktif Parseller (Bölgeler)" %}</h5>
+    <div class="row g-4 mb-4" id="parcels-grid">
+        <!-- Parcel cards will be populated via JS -->
+    </div>
+
+    <!-- Chart & Logs -->
+    <div class="row g-4 mb-4">
         <div class="col-lg-8 fade-in" style="animation-delay: 0.3s;">
-            <div class="chart-container h-100">
-                <div class="chart-header">
-                    <h5 class="chart-title">{% trans "Sensor Trend Analysis" %}</h5>
-                    <div class="d-flex gap-2">
-                        <span class="badge" style="background: rgba(244, 63, 94, 0.1); color: var(--temp-color); border: 1px solid rgba(244, 63, 94, 0.2); padding: 0.5em 0.75em;">{% trans "Temperature" %}</span>
-                        <span class="badge" style="background: rgba(14, 165, 233, 0.1); color: var(--moist-color); border: 1px solid rgba(14, 165, 233, 0.2); padding: 0.5em 0.75em;">{% trans "Moisture" %}</span>
-                    </div>
+            <div class="glass-panel">
+                <div class="panel-header">
+                    <span>{% trans "Sensor Trend Analysis" %}</span>
                 </div>
-                <div class="chart-wrapper">
+                <div style="height: 300px; width: 100%;">
                     <canvas id="iotChart"></canvas>
                 </div>
             </div>
         </div>
-
-        <!-- Activity Logs -->
         <div class="col-lg-4 fade-in" style="animation-delay: 0.4s;">
-            <div class="chart-container h-100">
-                <div class="chart-header">
-                    <h5 class="chart-title">{% trans "System Logs" %}</h5>
+            <div class="glass-panel">
+                <div class="panel-header">
+                    <span>{% trans "System Logs" %}</span>
+                    <a href="{% url 'api_export_report' %}" class="btn btn-sm btn-outline-light d-flex align-items-center gap-1" style="font-size: 0.8rem; background: rgba(255,255,255,0.05);">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                        {% trans "Raporu İndir" %}
+                    </a>
                 </div>
-                <div class="log-container" id="sys-logs">
-                    <!-- Logs injected dynamically -->
+                <div class="log-container" id="sys-logs"></div>
+            </div>
+        </div>
+    </div>
+
+    {% if request.user.is_staff %}
+    <!-- Admin Restricted Area -->
+    <div class="row g-4 fade-in" style="animation-delay: 0.5s;">
+        <!-- Threshold Config Form -->
+        <div class="col-lg-4" id="settings-section">
+            <div class="glass-panel border-warning" style="border-left-width: 4px;">
+                <div class="panel-header text-warning">{% trans "System Settings" %} (Admin)</div>
+                <form id="configForm" onsubmit="updateThreshold(event)">
+                    <div class="mb-3">
+                        <label class="form-label text-muted small fw-bold">{% trans "Parcel" %}</label>
+                        <select id="config-parcel-id" class="form-control form-control-neon mb-2">
+                        </select>
+                        <label class="form-label text-muted small fw-bold">{% trans "Auto-Irrigation Threshold (%)" %}</label>
+                        <div class="input-group">
+                            <input type="number" step="0.1" id="moist-threshold" class="form-control form-control-neon" required>
+                            <button class="btn btn-warning" type="submit">Save</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Device Status Table -->
+        <div class="col-lg-8" id="devices-section">
+            <div class="glass-panel border-info" style="border-left-width: 4px;">
+                <div class="panel-header text-info">{% trans "Device Status" %}</div>
+                <div class="table-responsive">
+                    <table class="table table-custom">
+                        <thead>
+                            <tr>
+                                <th>Device Name</th>
+                                <th>Battery</th>
+                                <th>Signal</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="device-tbody">
+                            <!-- Populated via JS -->
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
     </div>
-</div>
+    {% endif %}
 
-<!-- Bootstrap Toasts -->
+</main>
+
+<!-- Toasts -->
 <div class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index: 1055;">
-    <div id="liveToast" class="toast align-items-center text-white border-0" role="alert" aria-live="assertive" aria-atomic="true">
+    <div id="liveToast" class="toast align-items-center text-white border-0" role="alert" aria-live="assertive" aria-atomic="true" style="background: var(--surface-dark); border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 10px 25px rgba(0,0,0,0.5); backdrop-filter: blur(10px);">
         <div class="d-flex">
-            <div class="toast-body d-flex align-items-center gap-2" id="toast-msg">
-                <!-- Message injected -->
-            </div>
-            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            <div class="toast-body d-flex align-items-center gap-2" id="toast-msg"></div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
         </div>
     </div>
 </div>
 
-<!-- Bootstrap JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Profile Settings Modal -->
+<div class="modal fade" id="profileModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Profile Settings</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+      <form id="profileForm" onsubmit="updateProfile(event)">
+          <div class="modal-body">
+              <div class="mb-3">
+                  <label class="form-label text-muted small">First Name</label>
+                  <input type="text" id="prof-fname" class="form-control form-control-neon" value="{{ request.user.first_name }}">
+              </div>
+              <div class="mb-3">
+                  <label class="form-label text-muted small">Last Name</label>
+                  <input type="text" id="prof-lname" class="form-control form-control-neon" value="{{ request.user.last_name }}">
+              </div>
+              <div class="mb-3">
+                  <label class="form-label text-muted small">New Password (Leave blank to keep current)</label>
+                  <input type="password" id="prof-pass" class="form-control form-control-neon">
+              </div>
+          </div>
+          <div class="modal-footer">
+              <button type="submit" class="btn btn-primary w-100">Save Changes</button>
+          </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- User Management Modal -->
+{% if request.user.is_staff %}
+<div class="modal fade" id="userModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">User Management</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+          <ul class="list-group list-group-flush bg-transparent" id="user-list">
+              <!-- Users populated via JS -->
+          </ul>
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
 
 <script>
-    // i18n Translations passed from Django to JS
-    const translations = {
-        temp: '{% trans "Temperature" %}',
-        moist: '{% trans "Moisture" %}',
-        pumpActive: '{% trans "PUMP ACTIVE..." %}',
-        startIrrig: '{% trans "START IRRIGATION" %}',
-        critAlert: '{% trans "Critical soil moisture detected!" %}'
-    };
-
-    // CSRF Setup
     const csrftoken = document.querySelector('input[name=csrfmiddlewaretoken]').value;
-    
-    // Toast Setup
+    const isStaff = document.getElementById('is_staff').value === 'true';
+    let wasIrrigating = false;
+    let thresholdAlerted = false;
+
+    // Toast Logic
     const toastEl = document.getElementById('liveToast');
     const toastMsg = document.getElementById('toast-msg');
-    const bsToast = new bootstrap.Toast(toastEl);
+    let bsToast;
 
     function showToast(msg, type='success') {
+        if(!bsToast) bsToast = new bootstrap.Toast(toastEl, {delay: 4000});
         const bgClass = type === 'alert' ? 'bg-danger' : 'bg-success';
         const icon = type === 'alert' ? '⚠️' : '✅';
         toastEl.className = `toast align-items-center text-white ${bgClass} border-0`;
@@ -481,196 +581,264 @@
         bsToast.show();
     }
 
-    // Chart Setup
+    // Sidebar Active State
+    function setActive(el) {
+        document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
+        el.classList.add('active');
+    }
+
+    // Chart logic
     const ctx = document.getElementById('iotChart').getContext('2d');
-    
-    const tempGradient = ctx.createLinearGradient(0, 0, 0, 400);
-    tempGradient.addColorStop(0, 'rgba(244, 63, 94, 0.5)');
-    tempGradient.addColorStop(1, 'rgba(244, 63, 94, 0.01)');
-
-    const moistGradient = ctx.createLinearGradient(0, 0, 0, 400);
-    moistGradient.addColorStop(0, 'rgba(14, 165, 233, 0.5)');
-    moistGradient.addColorStop(1, 'rgba(14, 165, 233, 0.01)');
-
-    Chart.defaults.color = '#94a3b8';
-    Chart.defaults.font.family = "'Inter', sans-serif";
-    Chart.defaults.font.size = 13;
-
     const chart = new Chart(ctx, {
         type: 'line',
-        data: { 
-            labels: [], 
-            datasets: [
-                { 
-                    label: translations.temp + ' (°C)', 
-                    data: [], 
-                    borderColor: '#f43f5e', 
-                    backgroundColor: tempGradient, 
-                    borderWidth: 3,
-                    pointBackgroundColor: '#1e293b',
-                    pointBorderColor: '#f43f5e',
-                    pointBorderWidth: 2,
-                    pointRadius: 4,
-                    pointHoverRadius: 6,
-                    fill: true, 
-                    yAxisID: 'y', 
-                    tension: 0.4 
-                },
-                { 
-                    label: translations.moist + ' (%)', 
-                    data: [], 
-                    borderColor: '#0ea5e9', 
-                    backgroundColor: moistGradient, 
-                    borderWidth: 3,
-                    pointBackgroundColor: '#1e293b',
-                    pointBorderColor: '#0ea5e9',
-                    pointBorderWidth: 2,
-                    pointRadius: 4,
-                    pointHoverRadius: 6,
-                    fill: true, 
-                    yAxisID: 'y1', 
-                    tension: 0.4 
-                }
-            ]
-        },
+        data: { labels: [], datasets: [] },
         options: {
-            responsive: true,
-            maintainAspectRatio: false,
+            responsive: true, maintainAspectRatio: false,
             interaction: { mode: 'index', intersect: false },
-            plugins: {
-                legend: { display: false },
-                tooltip: {
-                    backgroundColor: 'rgba(15, 23, 42, 0.95)',
-                    titleColor: '#f8fafc',
-                    bodyColor: '#cbd5e1',
-                    borderColor: 'rgba(255,255,255,0.1)',
+            plugins: { 
+                legend: { 
+                    display: true, 
+                    position: 'bottom',
+                    labels: { color: '#94a3b8', usePointStyle: true, boxWidth: 6, font: { size: 11 }, padding: 15 } 
+                },
+                tooltip: { 
+                    backgroundColor: 'rgba(15, 23, 42, 0.9)', 
+                    titleColor: '#10b981', 
+                    bodyColor: '#f8fafc', 
+                    borderColor: 'rgba(255,255,255,0.1)', 
                     borderWidth: 1,
-                    padding: 12,
-                    boxPadding: 6,
-                    usePointStyle: true,
-                    titleFont: { size: 14, weight: '600' },
-                    bodyFont: { size: 13 }
+                    padding: 10
                 }
             },
             scales: {
-                x: {
-                    grid: { color: 'rgba(255, 255, 255, 0.05)', drawBorder: false },
-                    ticks: { maxRotation: 0, autoSkip: true, maxTicksLimit: 8 }
+                x: { 
+                    grid: { color: 'rgba(255, 255, 255, 0.03)', drawBorder: false }, 
+                    ticks: { color: '#94a3b8', maxTicksLimit: 8 } 
                 },
                 y: { 
-                    type: 'linear', position: 'left',
-                    suggestedMin: 15, suggestedMax: 35,
-                    grid: { color: 'rgba(255, 255, 255, 0.05)', drawBorder: false },
-                    title: { display: true, text: translations.temp + ' (°C)', color: '#94a3b8', font: { weight: '600' } },
-                    border: { dash: [4, 4] }
+                    type: 'linear', display: true, position: 'left',
+                    grid: { color: 'rgba(255, 255, 255, 0.03)', drawBorder: false }, 
+                    ticks: { color: '#f43f5e', callback: function(val) { return val + '°C'; } },
+                    grace: '10%'
                 },
-                y1: { 
-                    type: 'linear', position: 'right',
-                    suggestedMin: 20, suggestedMax: 80,
-                    grid: { drawOnChartArea: false }, 
-                    title: { display: true, text: translations.moist + ' (%)', color: '#94a3b8', font: { weight: '600' } }
+                y1: {
+                    type: 'linear', display: true, position: 'right',
+                    grid: { drawOnChartArea: false },
+                    ticks: { color: '#0ea5e9', callback: function(val) { return val + '%'; } },
+                    grace: '10%'
                 }
+            },
+            elements: {
+                point: { radius: 0, hitRadius: 10, hoverRadius: 5 }
             }
         }
     });
 
-    function animateValue(obj, start, end, duration) {
-        let startTimestamp = null;
-        const step = (timestamp) => {
-            if (!startTimestamp) startTimestamp = timestamp;
-            const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-            obj.innerHTML = (progress * (end - start) + start).toFixed(1);
-            if (progress < 1) window.requestAnimationFrame(step);
-        };
-        window.requestAnimationFrame(step);
-    }
-
-    let lastTemp = null;
-    let lastMoist = null;
-    let alertTriggered = false;
-
-    function renderLogs(logs) {
-        const container = document.getElementById('sys-logs');
-        container.innerHTML = logs.map(log => `
-            <div class="log-item">
-                <span class="log-time">${log.time}</span>
-                <span class="log-desc">${log.desc}</span>
-                <span class="log-badge log-${log.type}">${log.type}</span>
-            </div>
-        `).join('');
-    }
+    let irrigatingZones = {};
+    let alertedZones = {};
 
     function update() {
         fetch('/dashboard/api/data/')
             .then(r => r.json())
             .then(data => {
-                const tempEl = document.getElementById('temp-val');
-                const moistEl = document.getElementById('moist-val');
-                const btn = document.getElementById('btn-irrigate');
-                const icon = document.getElementById('pump-icon');
+                document.getElementById('temp-val').innerText = data.avg_temp.toFixed(1);
+                document.getElementById('avg-moist-val').innerText = data.avg_moist.toFixed(1);
                 
-                if (lastTemp !== null && lastTemp !== data.last_temp) animateValue(tempEl, lastTemp, data.last_temp, 800);
-                else if (lastTemp === null) tempEl.innerText = data.last_temp.toFixed(1);
-                
-                if (lastMoist !== null && lastMoist !== data.last_moist) animateValue(moistEl, lastMoist, data.last_moist, 800);
-                else if (lastMoist === null) moistEl.innerText = data.last_moist.toFixed(1);
+                // Populate parcels grid
+                const grid = document.getElementById('parcels-grid');
+                grid.innerHTML = data.parcels.map(p => {
+                    const isIrrigating = p.is_irrigating;
+                    
+                    if (isIrrigating && !irrigatingZones[p.id]) {
+                        showToast(`${p.name} {% trans "için Sulama Başlatıldı" %}`, "success");
+                        irrigatingZones[p.id] = true;
+                    } else if (!isIrrigating && irrigatingZones[p.id]) {
+                        showToast(`${p.name} {% trans "için Sulama Tamamlandı" %}`, "success");
+                        irrigatingZones[p.id] = false;
+                    }
+                    
+                    if (p.moisture < p.threshold && !alertedZones[p.id] && !isIrrigating) {
+                        showToast(`${p.name} {% trans "bölgesinde kritik nem seviyesi!" %}`, "alert");
+                        alertedZones[p.id] = true;
+                    } else if (p.moisture >= p.threshold) {
+                        alertedZones[p.id] = false;
+                    }
 
-                lastTemp = data.last_temp;
-                lastMoist = data.last_moist;
+                    return `
+                    <div class="col-md-4 fade-in">
+                        <div class="glass-panel d-flex flex-column justify-content-between" style="border-left: 4px solid var(--moist-color);">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <div>
+                                    <p class="text-light text-uppercase fw-bold mb-1" style="font-size: 0.85rem;">${p.name}</p>
+                                    <span class="kpi-value" style="font-size: 2.2rem;">${p.moisture.toFixed(1)}</span><span class="kpi-unit">%</span>
+                                    <div class="text-light small mt-1 fw-bold" style="letter-spacing: 0.5px;">{% trans "Sıcaklık" %}: ${p.temperature.toFixed(1)}°C | {% trans "Eşik" %}: ${p.threshold}%</div>
+                                </div>
+                                <div style="background: rgba(14, 165, 233, 0.1); padding: 15px; border-radius: 50%;">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--moist-color)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
+                                </div>
+                            </div>
+                            <button id="btn-irrigate-${p.id}" class="btn-irrigate mt-2" onclick="startIrrigation(event, ${p.id})" ${isIrrigating ? 'disabled' : ''}>
+                                ${isIrrigating ? '🔄 <span>{% trans "PUMP ACTIVE..." %}</span>' : '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg> <span>{% trans "BU PARSELİ SULA" %}</span>'}
+                            </button>
+                        </div>
+                    </div>`;
+                }).join('');
 
-                if (data.last_moist < 25 && !alertTriggered && !data.is_irrigating) {
-                    showToast(translations.critAlert, 'alert');
-                    alertTriggered = true;
-                } else if (data.last_moist >= 25) {
-                    alertTriggered = false;
-                }
+                document.getElementById('sys-logs').innerHTML = data.logs.map(log => `
+                    <div class="d-flex justify-content-between align-items-center log-item">
+                        <div class="d-flex align-items-center"><span class="log-time">${log.time}</span> <span>${log.desc}</span></div>
+                        <span class="log-badge log-${log.type}">${log.type}</span>
+                    </div>
+                `).join('');
 
-                if (data.is_irrigating) {
-                    btn.disabled = true;
-                    btn.innerHTML = '🔄 <span>' + translations.pumpActive + '</span>';
-                    icon.classList.add('pump-active');
-                } else {
-                    btn.disabled = false;
-                    btn.innerHTML = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg> <span>${translations.startIrrig}</span>`;
-                    icon.classList.remove('pump-active');
-                }
-
-                renderLogs(data.logs);
-
+                // Update chart preserving dataset visibility state
                 chart.data.labels = data.labels;
-                chart.data.datasets[0].data = data.temperature;
-                chart.data.datasets[1].data = data.soil_moisture;
+                
+                if (chart.data.datasets.length === data.datasets.length) {
+                    for (let i = 0; i < chart.data.datasets.length; i++) {
+                        chart.data.datasets[i].data = data.datasets[i].data;
+                    }
+                } else {
+                    chart.data.datasets = data.datasets;
+                }
+                
+                // Dinamik Eksen Ölçeklendirmesi (FR: Eksen Takılmasını Önleme)
+                let allTemps = [];
+                let allMoists = [];
+                
+                data.datasets.forEach(ds => {
+                    if (ds.yAxisID === 'y') {
+                        allTemps = allTemps.concat(ds.data);
+                    } else if (ds.yAxisID === 'y1') {
+                        allMoists = allMoists.concat(ds.data);
+                    }
+                });
+                
+                if (allTemps.length > 0) {
+                    let minT = Math.min(...allTemps);
+                    let maxT = Math.max(...allTemps);
+                    // Düz çizgi (sabit veri) durumunda eksenin kilitlenmesini önle
+                    if (minT === maxT) { minT -= 1.5; maxT += 1.5; }
+                    chart.options.scales.y.suggestedMin = minT - 1.0;
+                    chart.options.scales.y.suggestedMax = maxT + 1.0;
+                }
+                
+                if (allMoists.length > 0) {
+                    let minM = Math.min(...allMoists);
+                    let maxM = Math.max(...allMoists);
+                    if (minM === maxM) { minM -= 2.0; maxM += 2.0; }
+                    chart.options.scales.y1.suggestedMin = minM - 2.0;
+                    chart.options.scales.y1.suggestedMax = maxM + 2.0;
+                }
+                
                 chart.update('none');
-            })
-            .catch(err => console.error("Data fetch error:", err));
+
+                if (isStaff && data.users && data.devices) {
+                    const parcelSelect = document.getElementById('config-parcel-id');
+                    if (parcelSelect.children.length !== data.parcels.length) {
+                        parcelSelect.innerHTML = data.parcels.map(p => `<option value="${p.id}">${p.name} ({% trans "Mevcut Eşik" %}: ${p.threshold}%)</option>`).join('');
+                    }
+
+                    document.getElementById('device-tbody').innerHTML = data.devices.map(dev => `
+                        <tr>
+                            <td class="fw-bold">${dev.name}</td>
+                            <td><span class="badge bg-secondary">${dev.battery}</span></td>
+                            <td>${dev.signal}</td>
+                            <td><span class="status-dot d-inline-block me-1"></span> ${dev.status}</td>
+                        </tr>
+                    `).join('');
+
+                    document.getElementById('user-list').innerHTML = data.users.map(u => `
+                        <li class="list-group-item bg-transparent text-white border-secondary d-flex justify-content-between align-items-center">
+                            ${u.username}
+                            <span class="badge ${u.is_staff ? 'bg-danger' : 'bg-primary'}">${u.is_staff ? 'Admin' : 'Farmer'}</span>
+                        </li>
+                    `).join('');
+                }
+            });
     }
 
-    function startIrrigation() {
-        const btn = document.getElementById('btn-irrigate');
-        btn.disabled = true;
-
+    function startIrrigation(event, parcelId) {
+        event.preventDefault();
+        event.stopPropagation();
+        document.getElementById(`btn-irrigate-${parcelId}`).disabled = true;
         fetch('/dashboard/api/irrigate/', {
             method: 'POST',
-            headers: {
-                'X-CSRFToken': csrftoken,
-                'Content-Type': 'application/json'
-            }
-        })
-        .then(r => r.json())
-        .then(res => {
-            if (res.status === 'success') {
-                showToast(res.message, 'success');
+            headers: { 'X-CSRFToken': csrftoken, 'Content-Type': 'application/json' },
+            body: JSON.stringify({ parcel_id: parcelId })
+        }).then(() => update());
+    }
+
+    function updateThreshold(e) {
+        e.preventDefault();
+        const parcelId = document.getElementById('config-parcel-id').value;
+        const val = document.getElementById('moist-threshold').value;
+        fetch('/dashboard/api/config/', {
+            method: 'POST',
+            headers: { 'X-CSRFToken': csrftoken, 'Content-Type': 'application/json' },
+            body: JSON.stringify({ parcel_id: parcelId, threshold: val })
+        }).then(r => r.json()).then(res => {
+            if(res.status === 'success') {
+                showToast("{% trans 'Eşik değeri güncellendi' %}", "success");
                 update();
+            } else {
+                showToast(res.message, "alert");
             }
-        })
-        .catch(err => {
-            console.error(err);
-            btn.disabled = false;
         });
+    }
+
+    function updateProfile(e) {
+        e.preventDefault();
+        const fname = document.getElementById('prof-fname').value;
+        const lname = document.getElementById('prof-lname').value;
+        const pass = document.getElementById('prof-pass').value;
+        fetch('/dashboard/api/profile/', {
+            method: 'POST',
+            headers: { 'X-CSRFToken': csrftoken, 'Content-Type': 'application/json' },
+            body: JSON.stringify({ first_name: fname, last_name: lname, password: pass })
+        }).then(r => r.json()).then(res => {
+            if(res.status === 'success') {
+                showToast("{% trans 'Profil güncellendi' %}", "success");
+                bootstrap.Modal.getInstance(document.getElementById('profileModal')).hide();
+            } else {
+                showToast(res.message, "alert");
+            }
+        });
+    }
+
+    // Weather API Logic
+    function fetchWeather() {
+        // Coordinate for Elazığ
+        fetch('https://api.open-meteo.com/v1/forecast?latitude=38.6748&longitude=39.2225&current_weather=true')
+            .then(r => r.json())
+            .then(data => {
+                const w = data.current_weather;
+                document.getElementById('weather-temp').innerText = `${w.temperature}°C`;
+                // Simple weather code mapping
+                let icon = '🌤️';
+                let isRaining = false;
+                if (w.weathercode === 0) icon = '☀️';
+                else if (w.weathercode >= 1 && w.weathercode <= 3) icon = '⛅';
+                else if (w.weathercode >= 60 && w.weathercode <= 69) { icon = '🌧️'; isRaining = true; }
+                else if (w.weathercode >= 95) { icon = '⛈️'; isRaining = true; }
+                
+                document.getElementById('weather-icon').innerText = icon;
+
+                if (isRaining) {
+                    document.getElementById('rain-alert').classList.remove('d-none');
+                    document.getElementById('btn-irrigate').disabled = true; // Pause irrigation visually
+                } else {
+                    document.getElementById('rain-alert').classList.add('d-none');
+                }
+            })
+            .catch(err => console.error('Weather fetch error:', err));
     }
 
     setInterval(update, 3000);
     update();
+    fetchWeather();
 </script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

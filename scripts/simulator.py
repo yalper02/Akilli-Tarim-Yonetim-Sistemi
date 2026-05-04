@@ -11,13 +11,16 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'core.settings')
 django.setup()
 
-from visualization.models import SensorData, SystemState, ActivityLog
+from visualization.models import SensorData, SystemState, ActivityLog, Parcel
 
 def start_simulation():
-    print("--- 🌿 Akıllı Tarım Profesyonel Simülasyonu Başlatıldı ---")
+    print("--- Akilli Tarim Profesyonel Simulasyonu Baslatildi ---")
     
-    last_data = SensorData.objects.order_by('-timestamp').first()
-    current_soil_moisture = last_data.soil_moisture if last_data else 55.0
+    # Ensure parcels exist
+    parcels = []
+    for i in range(1, 4):
+        p, _ = Parcel.objects.get_or_create(name=f"Device_0{i}")
+        parcels.append(p)
 
     while True:
         try:
@@ -30,40 +33,46 @@ def start_simulation():
             temp = base_temp + amplitude * math.sin((hour - 9) * math.pi / 12)
             temp += random.uniform(-0.15, 0.15) 
 
-            state, _ = SystemState.objects.get_or_create(id=1)
+            for parcel in parcels:
+                last_data = SensorData.objects.filter(parcel=parcel).order_by('-timestamp').first()
+                current_soil_moisture = last_data.soil_moisture if last_data else random.uniform(40.0, 60.0)
 
-            if state.is_irrigating:
-                # Pump is active, moisture increases rapidly
-                current_soil_moisture += 15.0
-                if current_soil_moisture >= 85.0:
-                    current_soil_moisture = 85.0
-                    state.is_irrigating = False
-                    state.save()
-                    ActivityLog.objects.create(event_type="INFO", description="Irrigation Completed")
-                    print("💧 Sulama tamamlandi.")
-            else:
-                # Buharlaşma mantığı (İlişkisel Veri)
-                if temp > 25:
-                    evaporation = random.uniform(0.04, 0.08)
+                parcel.refresh_from_db()
+
+                if parcel.is_irrigating:
+                    current_soil_moisture += 15.0
+                    if current_soil_moisture >= 85.0:
+                        current_soil_moisture = 85.0
+                        parcel.is_irrigating = False
+                        parcel.save()
+                        ActivityLog.objects.create(event_type="INFO", description=f"Irrigation Completed for {parcel.name}")
+                        print(f"[Su] {parcel.name} sulama tamamlandi.")
                 else:
-                    evaporation = random.uniform(0.01, 0.03)
-                
-                current_soil_moisture -= evaporation
+                    if temp > 25:
+                        evaporation = random.uniform(0.04, 0.08)
+                    else:
+                        evaporation = random.uniform(0.01, 0.03)
+                    
+                    current_soil_moisture -= evaporation
 
-                # Otomatik Sulama Protokolü
-                if current_soil_moisture < 25:
-                    ActivityLog.objects.create(event_type="WARNING", description="Auto-irrigation triggered due to low moisture")
-                    state.is_irrigating = True
-                    state.save()
-                    print("💧 Nem kritik! Otomatik sulama baslatiliyor...")
+                    if current_soil_moisture < parcel.moisture_threshold:
+                        ActivityLog.objects.create(event_type="WARNING", description=f"Auto-irrigation triggered for {parcel.name}")
+                        parcel.is_irrigating = True
+                        parcel.save()
+                        print(f"[Su] {parcel.name} Nem kritik (< {parcel.moisture_threshold}%)! Otomatik sulama baslatiliyor...")
 
-            SensorData.objects.create(
-                temperature=round(temp, 2),
-                humidity=random.uniform(45, 55),
-                soil_moisture=round(current_soil_moisture, 2)
-            )
+                parcel_temp = temp + random.uniform(-0.5, 0.5)
 
-            print(f"[{now.strftime('%H:%M:%S')}] Sicaklik: {temp:.2f}C | Nem: %{current_soil_moisture:.2f} | Pompa: {'ACIK' if state.is_irrigating else 'KAPALI'}")
+                SensorData.objects.create(
+                    parcel=parcel,
+                    device_name=parcel.name,
+                    temperature=round(parcel_temp, 2),
+                    humidity=random.uniform(45, 55),
+                    soil_moisture=round(current_soil_moisture, 2)
+                )
+
+                print(f"[{now.strftime('%H:%M:%S')}] {parcel.name} | Sicaklik: {parcel_temp:.2f}C | Nem: %{current_soil_moisture:.2f} | Pompa: {'ACIK' if parcel.is_irrigating else 'KAPALI'}")
+            
             time.sleep(3)
 
         except KeyboardInterrupt:
