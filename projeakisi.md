@@ -59,3 +59,9 @@ Paydaş Analizi: Sistemin ana kullanıcıları olan çiftçiler, ziraat mühendi
 İşlevsel Olmayan Gereksinimler: Veri güvenliği, sistem hızı ve mobil uyumluluk kriterleri dokümante edilmiştir.
 
 Çıktı: Tüm bu detayları içeren kapsamlı rapor "ATYS_Gereksinim_Dokumani.docx" adıyla ana dizine eklenmiştir.
+
+### 4. Hafta: IoT Mimari ve MQTT Analizi (17.05.2026)
+- Sistemde kullanılacak MQTT Broker olarak Mosquitto seçildi.
+- Django, Celery ve Redis entegrasyonu ile asenkron veri akışı planlandı.
+- Veritabanı (PostgreSQL) üzerindeki sensör kayıt tabloları detaylandırıldı.
+- Teknik analiz raporu PDF olarak dosyalara eklendi.
