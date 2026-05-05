@@ -47,3 +47,15 @@ Frontend ve Backend arasındaki iletişim için şu uç noktalar belirlenmiştir
 POST /api/login/: Kullanıcı doğrulama.
 
 GET /api/dashboard/: Canlı sensör verilerini çekme.
+
+
+3. Hafta * Gereksinim Analizi ve Paydaş Çalışması (10.05.2026)
+Bu hafta projenin teknik ve işlevsel altyapısını oluşturacak olan analiz süreci tamamlanmıştır. Yapılan çalışmalar şunlardır:
+
+Paydaş Analizi: Sistemin ana kullanıcıları olan çiftçiler, ziraat mühendisleri ve kooperatif yöneticilerinin ihtiyaçları belirlenmiş, kullanıcı hikayeleri (user stories) taslak haline getirilmiştir.
+
+İşlevsel Gereksinimler: Akıllı sulama otomasyonu, toprak nem/sıcaklık takibi ve anlık bildirim sistemleri gibi temel özellikler tanımlanmıştır.
+
+İşlevsel Olmayan Gereksinimler: Veri güvenliği, sistem hızı ve mobil uyumluluk kriterleri dokümante edilmiştir.
+
+Çıktı: Tüm bu detayları içeren kapsamlı rapor "ATYS_Gereksinim_Dokumani.docx" adıyla ana dizine eklenmiştir.
