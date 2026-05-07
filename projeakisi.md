@@ -81,3 +81,9 @@ Paydaş Analizi: Sistemin ana kullanıcıları olan çiftçiler, ziraat mühendi
     - Hiperparametre optimizasyonu ile modelin hata payı (MAE) %33 oranında iyileştirildi.
     - Özellik mühendisliği uygulanarak 'Nem Değişim Oranı' gibi yeni parametreler modele tanıtıldı.
     - Modelin farklı veri gruplarındaki tutarlılığı Cross-Validation yöntemiyle doğrulandı.
+
+  - **Hafta 8: Proje Tamamlama ve Sistem Testleri (Final)**
+    - Geliştirilen Akıllı Tarım Yönetim Sistemi (ATYS) bileşenleri (Veritabanı, ML Modeli, API yapısı) entegre edildi.
+    - Sistem üzerinde Birim Testleri (Unit Tests) ve Entegrasyon Testleri başarıyla gerçekleştirildi.
+    - Modelin gerçek zamanlı veri simülasyonu altındaki stabilitesi doğrulandı.
+    - Proje, belirlenen tüm gereksinimleri karşılayacak şekilde yayına hazır hale getirildi.
