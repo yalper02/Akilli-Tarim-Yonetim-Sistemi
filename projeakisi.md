@@ -71,3 +71,8 @@ Paydaş Analizi: Sistemin ana kullanıcıları olan çiftçiler, ziraat mühendi
 - Users, Fields, Sensors ve Sensor_Logs tabloları oluşturuldu.
 - Veri bütünlüğü için Foreign Key ve UUID yapıları dahil edildi.
 - Teknik dökümantasyon (PDF) proje dosyalarına eklendi.
+
+- **Hafta 6:** Makine Öğrenimi Model Seçimi ve Eğitimi
+    - Sensör verileri (nem, sıcaklık, ışık) üzerinden sulama tahmini yapacak karar destek mekanizması kurgulandı.
+    - Random Forest Regressor algoritması, tablosal veri başarısı ve düşük hata payı (MAE: 0.12) nedeniyle tercih edildi.
+    - Modelin eğitim süreçleri, başarı metrikleri ve karşılaştırmalı analizleri rapor haline getirildi.
