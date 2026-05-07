@@ -76,3 +76,8 @@ Paydaş Analizi: Sistemin ana kullanıcıları olan çiftçiler, ziraat mühendi
     - Sensör verileri (nem, sıcaklık, ışık) üzerinden sulama tahmini yapacak karar destek mekanizması kurgulandı.
     - Random Forest Regressor algoritması, tablosal veri başarısı ve düşük hata payı (MAE: 0.12) nedeniyle tercih edildi.
     - Modelin eğitim süreçleri, başarı metrikleri ve karşılaştırmalı analizleri rapor haline getirildi.
+
+- **Hafta 7: Model İyileştirme ve Optimizasyon**
+    - Hiperparametre optimizasyonu ile modelin hata payı (MAE) %33 oranında iyileştirildi.
+    - Özellik mühendisliği uygulanarak 'Nem Değişim Oranı' gibi yeni parametreler modele tanıtıldı.
+    - Modelin farklı veri gruplarındaki tutarlılığı Cross-Validation yöntemiyle doğrulandı.
