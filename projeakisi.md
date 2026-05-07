@@ -65,3 +65,9 @@ Paydaş Analizi: Sistemin ana kullanıcıları olan çiftçiler, ziraat mühendi
 - Django, Celery ve Redis entegrasyonu ile asenkron veri akışı planlandı.
 - Veritabanı (PostgreSQL) üzerindeki sensör kayıt tabloları detaylandırıldı.
 - Teknik analiz raporu PDF olarak dosyalara eklendi.
+
+### 5. Hafta: Veritabanı Şema Tasarımı (24.05.2026)
+- PostgreSQL üzerinde varlık-ilişki (E-R) modeli kurgulandı.
+- Users, Fields, Sensors ve Sensor_Logs tabloları oluşturuldu.
+- Veri bütünlüğü için Foreign Key ve UUID yapıları dahil edildi.
+- Teknik dökümantasyon (PDF) proje dosyalarına eklendi.
