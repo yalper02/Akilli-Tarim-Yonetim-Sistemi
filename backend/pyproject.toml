@@ -1,0 +1,56 @@
+[tool.poetry]
+name = "akilli-tarim-backend"
+version = "0.1.0"
+description = "Smart Agriculture Management System — Backend"
+authors = ["Muhammed Cengiz <250541037@firat.edu.tr>"]
+package-mode = false
+
+[tool.poetry.dependencies]
+python = "^3.11"
+django = "^5.0"
+djangorestframework = "^3.15"
+channels = "^4.1"
+channels-redis = "^4.2"
+celery = {extras = ["redis"], version = "^5.3"}
+django-celery-beat = "^2.6"
+paho-mqtt = "^2.0"
+psycopg = {extras = ["binary"], version = "^3.1"}
+redis = "^5.0"
+drf-spectacular = "^0.27"
+djangorestframework-simplejwt = "^5.3"
+django-filter = "^24.0"
+scikit-learn = "^1.4"
+pandas = "^2.2"
+openpyxl = "^3.1"
+django-cors-headers = "^4.3"
+django-ratelimit = "^4.1"
+python-dotenv = "^1.0"
+requests = "^2.31"
+
+[tool.poetry.group.dev.dependencies]
+black = "^24.0"
+ruff = "^0.4"
+pytest = "^8.0"
+pytest-django = "^4.8"
+factory-boy = "^3.3"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 100
+target-version = ["py311"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "W", "UP"]
+ignore = ["E501"]
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "config.settings.development"
+python_files = ["tests.py", "test_*.py", "*_test.py"]
+pythonpath = ["."]

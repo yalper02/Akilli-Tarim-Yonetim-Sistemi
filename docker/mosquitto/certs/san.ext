@@ -1,0 +1,2 @@
+[SAN]
+subjectAltName=DNS:mosquitto,DNS:localhost,IP:127.0.0.1

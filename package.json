@@ -1,0 +1,42 @@
+{
+  "name": "akilli-tarim-yonetim",
+  "version": "1.0.0",
+  "description": "IoT sensörlerden gelen toprak nemi, sıcaklık, pH ve NPK verilerini kullanarak sulama ve gübreleme kararlarını optimize eden akıllı tarım yönetim sistemi.",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepare": "husky"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mhmdcngz/akilli-tarim-yonetim.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mhmdcngz/akilli-tarim-yonetim/issues"
+  },
+  "homepage": "https://github.com/mhmdcngz/akilli-tarim-yonetim#readme",
+  "devDependencies": {
+    "husky": "^9.1.7",
+    "lint-staged": "^16.4.0",
+    "prettier": "^3.8.3",
+    "prettier-plugin-tailwindcss": "^0.7.3"
+  },
+  "lint-staged": {
+    "backend/**/*.py": [
+      "poetry -C backend run black",
+      "poetry -C backend run ruff check"
+    ],
+    "frontend/**/*.{ts,tsx,js,jsx,mjs}": [
+      "prettier --write"
+    ],
+    "frontend/**/*.{css,json,md}": [
+      "prettier --write"
+    ]
+  }
+}

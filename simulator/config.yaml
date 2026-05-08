@@ -1,0 +1,106 @@
+# Sensör simülatörü yapılandırması
+# Her cihaz belirtilen capability'leri 30 saniyede bir yayınlar
+
+mqtt:
+  host: localhost
+  port: 8883
+  tls: true
+  ca_cert: ../docker/mosquitto/certs/ca.crt
+
+publish_interval_seconds: 30
+
+farms:
+  - farm_id: 3
+    devices:
+      - device_uid: seed-sensor-001
+        username: device-sensor-001
+        password: sim-password-001
+        device_type: sensor
+        capabilities:
+          soil_moisture:
+            base: 55.0
+            drift: -0.5        # nem her döngüde %0.5 azalır
+            noise: 2.0
+            min: 0.0
+            max: 100.0
+          temperature:
+            base: 22.0
+            drift: 0.0
+            noise: 0.5
+            min: -50.0
+            max: 80.0
+          humidity:
+            base: 65.0
+            drift: 0.0
+            noise: 1.0
+            min: 0.0
+            max: 100.0
+          ph_level:
+            base: 6.5
+            drift: 0.0
+            noise: 0.1
+            min: 0.0
+            max: 14.0
+          nitrogen_level:
+            base: 145.0
+            drift: -0.2
+            noise: 5.0
+            min: 0.0
+            max: 10000.0
+          phosphorus_level:
+            base: 32.0
+            drift: -0.1
+            noise: 2.0
+            min: 0.0
+            max: 10000.0
+          potassium_level:
+            base: 210.0
+            drift: -0.3
+            noise: 8.0
+            min: 0.0
+            max: 10000.0
+        telemetry:
+          battery_level:
+            base: 87
+            drift: -0.05
+          rssi:
+            base: -68
+            noise: 3.0
+
+      - device_uid: seed-sensor-002
+        username: device-sensor-002
+        password: sim-password-002
+        device_type: sensor
+        capabilities:
+          soil_moisture:
+            base: 42.0
+            drift: -0.4
+            noise: 1.5
+            min: 0.0
+            max: 100.0
+          temperature:
+            base: 24.0
+            drift: 0.0
+            noise: 0.8
+            min: -50.0
+            max: 80.0
+        telemetry:
+          battery_level:
+            base: 72
+            drift: -0.03
+          rssi:
+            base: -75
+            noise: 5.0
+
+      - device_uid: seed-valve-001
+        username: device-valve-001
+        password: sim-password-v01
+        device_type: actuator
+        capabilities: {}        # aktüatör telemetri göndermez
+        telemetry:
+          battery_level:
+            base: 95
+            drift: -0.02
+          rssi:
+            base: -55
+            noise: 2.0

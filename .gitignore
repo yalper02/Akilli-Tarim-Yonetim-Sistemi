@@ -1,0 +1,76 @@
+# ── Python ────────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+eggs/
+.eggs/
+*.egg
+.venv/
+venv/
+env/
+.env/
+pip-wheel-metadata/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.hypothesis/
+htmlcov/
+.coverage
+.coverage.*
+coverage.xml
+*.cover
+*.log
+
+# ── Node.js ───────────────────────────────────────────────────────────────────
+node_modules/
+.next/
+out/
+dist/
+.turbo/
+.vercel/
+*.tsbuildinfo
+next-env.d.ts
+.eslintcache
+.pnpm-store/
+
+# ── Environment / secrets ─────────────────────────────────────────────────────
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# ── Docker runtime artifacts ──────────────────────────────────────────────────
+docker/mosquitto/data/
+docker/mosquitto/log/
+docker/timescaledb/data/
+docker/nginx/logs/
+
+# ── Export output files (generated CSV/Excel — NOT the apps/exports/ Django app) ─
+backend/exports/
+*.csv
+*.xlsx
+*.xls
+
+# ── IDE ───────────────────────────────────────────────────────────────────────
+.vscode/
+!.vscode/extensions.json
+.idea/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# ── Poetry ────────────────────────────────────────────────────────────────────
+# Keep poetry.lock committed — omit only local caches
+.cache/
