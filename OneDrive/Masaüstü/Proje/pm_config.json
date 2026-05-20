@@ -1,0 +1,12 @@
+{
+    "system_name": "Akıllı Tarım Proje Yönetim Sistemi",
+    "version": "1.0.0",
+    "admin_email": "admin@akillitarim.local",
+    "database_path": "pm_tool.db",
+    "features_enabled": {
+        "task_tracking": true,
+        "time_logging": true,
+        "agile_boards": true,
+        "notifications": false
+    }
+}
