@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<!--
+    Akıllı Tarım Yönetim Sistemi - Dashboard Template
+    Django Template: veri_analiz/dashboard.html
+    
+    Bu template, sensör verilerinin anlık durumunu ve
+    analiz sonuçlarını görsel olarak sunar.
+-->
+{% load static %}
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Akıllı Tarım - Veri Analiz Dashboard</title>
+    
+    <!-- Plotly JS (İnteraktif grafikler için) -->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    
+    <style>
+        :root {
+            --primary: #2E7D32;
+            --primary-light: #4CAF50;
+            --secondary: #1565C0;
+            --bg-dark: #1a1a2e;
+            --bg-card: #16213e;
+            --text-primary: #e0e0e0;
+            --text-secondary: #a0a0a0;
+            --accent-green: #00E676;
+            --accent-blue: #448AFF;
+            --accent-orange: #FF9100;
+            --accent-red: #FF5252;
+            --shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            min-height: 100vh;
+        }
+
+        /* HEADER */
+        .header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--shadow);
+        }
+
+        .header h1 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .header .header-stats {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .header .stat-item {
+            text-align: center;
+        }
+
+        .header .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .header .stat-label {
+            font-size: 0.75rem;
+            opacity: 0.85;
+        }
+
+        /* MAIN LAYOUT */
+        .main-content {
+            padding: 1.5rem 2rem;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--primary-light);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* GRID */
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(480px, 1fr));
+            gap: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        /* CARD */
+        .card {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .card-title {
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .card-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .badge-aktif {
+            background: rgba(0, 230, 118, 0.15);
+            color: var(--accent-green);
+        }
+
+        .badge-acil {
+            background: rgba(255, 82, 82, 0.15);
+            color: var(--accent-red);
+        }
+
+        .badge-yuksek {
+            background: rgba(255, 145, 0, 0.15);
+            color: var(--accent-orange);
+        }
+
+        /* SENSOR CARD */
+        .sensor-value {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin: 0.5rem 0;
+        }
+
+        .sensor-meta {
+            display: flex;
+            justify-content: space-between;
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            margin-top: 0.5rem;
+        }
+
+        .sensor-range {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 0.75rem;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        .sensor-bar {
+            width: 100%;
+            height: 6px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 3px;
+            margin-top: 0.5rem;
+            overflow: hidden;
+        }
+
+        .sensor-bar-fill {
+            height: 100%;
+            border-radius: 3px;
+            transition: width 0.5s ease;
+        }
+
+        /* ÖNERİ TABLOSU */
+        .oneri-listesi {
+            list-style: none;
+        }
+
+        .oneri-item {
+            padding: 0.75rem 1rem;
+            border-left: 4px solid var(--primary-light);
+            margin-bottom: 0.5rem;
+            background: rgba(255,255,255,0.03);
+            border-radius: 0 8px 8px 0;
+        }
+
+        .oneri-item.acil {
+            border-left-color: var(--accent-red);
+        }
+
+        .oneri-item.yuksek {
+            border-left-color: var(--accent-orange);
+        }
+
+        .oneri-metin {
+            font-size: 0.85rem;
+            line-height: 1.4;
+        }
+
+        .oneri-zaman {
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            margin-top: 0.25rem;
+        }
+
+        /* GRAFİK ALANI */
+        .grafik-container {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(255,255,255,0.05);
+            margin-bottom: 2rem;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+            .grid-3, .grid-2 {
+                grid-template-columns: 1fr;
+            }
+            .main-content {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header class="header">
+        <h1>🌾 Akıllı Tarım - Veri Analiz Dashboard</h1>
+        <div class="header-stats">
+            <div class="stat-item">
+                <div class="stat-value">{{ toplam_sensor }}</div>
+                <div class="stat-label">Aktif Sensör</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">{{ toplam_veri }}</div>
+                <div class="stat-label">Son 24 Saat Veri</div>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+
+        <!-- SENSÖR DURUM KARTLARI -->
+        <h2 class="section-title">📡 Anlık Sensör Durumu</h2>
+        <div class="grid-3">
+            {% for ad, bilgi in ozet_istatistikler.items %}
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-title">{{ bilgi.sensor.ad }}</span>
+                    <span class="card-badge badge-aktif">{{ bilgi.sensor.get_durum_display }}</span>
+                </div>
+                <div class="sensor-value" style="color: 
+                    {% if bilgi.sensor.sensor_tipi == 'toprak_nem' %}#2196F3
+                    {% elif bilgi.sensor.sensor_tipi == 'sicaklik' %}#FF5722
+                    {% elif bilgi.sensor.sensor_tipi == 'hava_nem' %}#4CAF50
+                    {% elif bilgi.sensor.sensor_tipi == 'ph' %}#9C27B0
+                    {% else %}#FFC107{% endif %};">
+                    {% if bilgi.istatistikler.ortalama %}
+                        {{ bilgi.istatistikler.ortalama|floatformat:1 }}
+                    {% else %}
+                        --
+                    {% endif %}
+                </div>
+                <div class="sensor-meta">
+                    <span>📍 {{ bilgi.sensor.bolge }}</span>
+                    <span>📊 {{ bilgi.istatistikler.veri_sayisi|default:"0" }} ölçüm</span>
+                </div>
+                <div class="sensor-range">
+                    <span>Min: {{ bilgi.istatistikler.minimum|floatformat:1|default:"--" }}</span>
+                    <span>Maks: {{ bilgi.istatistikler.maksimum|floatformat:1|default:"--" }}</span>
+                </div>
+                <div class="sensor-bar">
+                    <div class="sensor-bar-fill" style="
+                        width: {% if bilgi.istatistikler.ortalama %}{{ bilgi.istatistikler.ortalama }}{% else %}0{% endif %}%;
+                        background: linear-gradient(90deg, 
+                            {% if bilgi.sensor.sensor_tipi == 'toprak_nem' %}#2196F3, #64B5F6
+                            {% elif bilgi.sensor.sensor_tipi == 'sicaklik' %}#FF5722, #FF8A65
+                            {% else %}#4CAF50, #81C784{% endif %});
+                    "></div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- GAUGE GRAFİKLERİ -->
+        <h2 class="section-title">🎯 Sensör Göstergeleri</h2>
+        <div class="grid-3">
+            {% for ad, gauge_html in gauge_grafikleri.items %}
+            <div class="card">
+                {{ gauge_html|safe }}
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- SULAMA ÖNERİLERİ -->
+        <h2 class="section-title">💧 Son Sulama Önerileri</h2>
+        <div class="card">
+            <ul class="oneri-listesi">
+                {% for oneri in son_oneriler %}
+                <li class="oneri-item {{ oneri.oncelik }}">
+                    <div class="oneri-metin">
+                        <strong>[{{ oneri.get_oncelik_display }}]</strong>
+                        {{ oneri.oneri_metni }}
+                    </div>
+                    <div class="oneri-zaman">
+                        {{ oneri.olusturulma_zamani|timesince }} önce
+                        {% if oneri.onerilen_su_miktari %}
+                        | Önerilen: {{ oneri.onerilen_su_miktari }} lt/m²
+                        {% endif %}
+                    </div>
+                </li>
+                {% empty %}
+                <li class="oneri-item">
+                    <div class="oneri-metin">Henüz sulama önerisi bulunmuyor.</div>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+    </main>
+
+    <script>
+        // Sayfa her 5 dakikada bir otomatik yenilenir
+        setTimeout(function() {
+            window.location.reload();
+        }, 5 * 60 * 1000);
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,76 @@
+# ============================================================================
+# Akıllı Tarım Yönetim Sistemi - Veri Toplama ve Analiz Modülü
+# Python/Django Bağımlılıkları (requirements.txt)
+# ============================================================================
+
+# Django Web Framework
+Django>=4.2,<5.0
+
+# ============================================================================
+# VERİ İŞLEME VE ANALİZ KÜTÜPHANELERİ
+# ============================================================================
+
+# NumPy - Sayısal hesaplamalar, matris işlemleri
+# Kullanım: İstatistiksel hesaplamalar, veri dönüşümleri
+numpy>=1.24.0
+
+# Pandas - Veri manipülasyonu ve analiz
+# Kullanım: DataFrame ile sensör verisi yönetimi, zaman serisi
+pandas>=2.0.0
+
+# SciPy - Bilimsel hesaplama
+# Kullanım: İstatistiksel testler (t-test, ANOVA), korelasyon, regresyon
+scipy>=1.10.0
+
+# ============================================================================
+# MAKİNE ÖĞRENMESİ KÜTÜPHANELERİ
+# ============================================================================
+
+# Scikit-learn - Makine öğrenmesi algoritmaları
+# Kullanım: Random Forest, SVM, KNN, K-Means, model değerlendirme
+scikit-learn>=1.3.0
+
+# Joblib - Model kaydetme/yükleme
+# Kullanım: Eğitilmiş ML modellerinin diske kaydedilmesi
+joblib>=1.3.0
+
+# ============================================================================
+# ZAMAN SERİSİ ANALİZ KÜTÜPHANELERİ
+# ============================================================================
+
+# Statsmodels - İstatistiksel modeller ve zaman serisi
+# Kullanım: ARIMA, Holt-Winters, mevsimsel ayrıştırma, durağanlık testleri
+statsmodels>=0.14.0
+
+# ============================================================================
+# VERİ GÖRSELLEŞTİRME KÜTÜPHANELERİ
+# ============================================================================
+
+# Matplotlib - Temel grafik kütüphanesi
+# Kullanım: Statik grafikler, zaman serisi çizimleri, histogram
+matplotlib>=3.7.0
+
+# Seaborn - İstatistiksel görselleştirme
+# Kullanım: Isı haritaları, kutu grafikleri, pair plot, violin plot
+seaborn>=0.12.0
+
+# Plotly - İnteraktif web grafikleri
+# Kullanım: Dashboard grafikleri, gerçek zamanlı izleme, gauge göstergeleri
+plotly>=5.15.0
+
+# ============================================================================
+# VERİTABANI
+# ============================================================================
+
+# PostgreSQL adaptörü (production ortamı için)
+# psycopg2-binary>=2.9.0
+
+# ============================================================================
+# YARDIMCI KÜTÜPHANELER
+# ============================================================================
+
+# Python-dateutil - Tarih/saat işlemleri
+python-dateutil>=2.8.0
+
+# Django REST Framework (opsiyonel - API genişletme için)
+# djangorestframework>=3.14.0
