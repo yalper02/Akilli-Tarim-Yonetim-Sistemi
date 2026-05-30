@@ -1,0 +1,337 @@
+--- Page 1 ---
+Final Sunum Hazırlığı
+Sunum İçerik Planı, Görsel Materyaller ve Prova Takvimi
+Proje Yönetim Ofisi
+Akıllı Tarım Yönetim Sistemi
+Mayıs 2025
+1 Yönetici Özeti
+Bu belge, Akıllı Tarım Yönetim Sistemi projesinin final sunumuna yönelik hazırlık planını
+kapsamaktadır. 11 slaytlık 45 dakikalık sunum; sistem mimarisi, ML model sonuçları, canlı
+demo ve proje KPI’larını paydaşlara aktarmak üzere yapılandırılmıştır.
+Hedefkitleolarakteknikekip,projesponsorları,tarımbakanlığıtemsilcileriveyatırımcılar
+belirlenmiştir. Sunum teknik derinliği ile yönetici özeti dengesini gözetecek şekilde iki
+katmanlı (teknik + yönetici) yapıda tasarlanmıştır.
+2 Sunum İçerik Planı ve Slayt Dağılımı
+Toplam 45 dakikalık sunum 11 slayda bölünmüştür. Her slayt için içerik, görsel materyal
+türü ve konuşma süresi aşağıda planlanmıştır.
+NoBölüm İçerik Görsel Materyal Süre
+1Kapak Proje adı, ekip, ta-
+rih, proje logosu ve
+kısa slogan
+Özel tasarım kapak
+görseli
+1 dk
+2Proje
+Özeti
+Problem tanımı,
+hedefler, kapsam ve
+paydaş haritası
+İnfografik – 4 ana
+hedef
+3 dk
+3Sistem Mi-
+marisi
+IoT→Django→
+ML→Dashboard
+akış diyagramı
+Mimari akış şeması
+(renkli)
+4 dk
+4Veri ve
+Analiz
+Sensör verileri,
+özellik mühen-
+disliği, model
+sonuçları
+Grafik: sensör
+trend, korelasyon
+matrisi
+5 dk
+1
+--- Page 2 ---
+NoBölüm İçerik Görsel Materyal Süre
+5ML Model-
+leri
+XGBoost, Prop-
+het, Isolation
+Forest performans
+karşılaştırması
+Çubuk grafik:
+F1/R2 skorları
+5 dk
+6Model Va-
+lidasyonu
+CV sonuçları, over-
+fitting analizi, ge-
+nelleme yeteneği
+Burndown ve scat-
+ter plot
+4 dk
+7Entegrasyon API mimarisi,
+CI/CD pipeline,
+deployment adım-
+ları
+Sistem entegrasyon
+diyagramı
+4 dk
+8Demo Canlı dashboard
+gösterimi, gerçek
+zamanlı sensör
+verisi
+Ekran kaydı veya
+canlı demo
+5 dk
+9Sonuçlar
+ve KPI
+Proje KPI’ları, ger-
+çekleşen vs hedef
+karşılaştırması
+Tablo ve gauge
+chart
+4 dk
+10Sonraki
+Adımlar
+Kısa/orta/uzun va-
+deli yol haritası ve
+açık konular
+Zaman çizelgesi
+(roadmap)
+3 dk
+11Soru-
+Cevap
+Sorular için açık
+oturum, iletişim
+bilgileri
+Ekip fotoğrafları ve
+iletişim
+7 dk
+3 Görsel Materyal Listesi
+Sunumda kullanılacak görsel materyaller, üretim araçları ve hazırlık durumu aşağıda özet-
+lenmektedir.
+Görsel Mater-
+yal
+Tür Araç / Kaynak Slayt Durum
+Sistem Mima-
+risi Diyagramı
+Akış şe-
+ması
+Draw.io / Lucidc-
+hart – PNG dışa
+aktarım
+Slayt 3 Hazır
+Sensör Trend
+Grafikleri
+Çizgi gra-
+fik
+Plotly – 7 günlük
+nem, sıcaklık, pH
+verisi
+Slayt 4 Hazır
+Korelasyon
+Matrisi
+Isı haritası Seaborn heatmap –
+özellik korelasyon
+matrisi
+Slayt 4 Hazır
+2
+--- Page 3 ---
+Görsel Mater-
+yal
+Tür Araç / Kaynak Slayt Durum
+Model Perfor-
+mans Karşı-
+laştırması
+Çubuk
+grafik
+Matplotlib grouped
+bar – F1/R2 karşı-
+laştırması
+Slayt 5 Hazır
+CV Sonuç Da-
+ğılımı
+Box plot Plotly boxplot –
+fold bazında skor
+dağılımı
+Slayt 6 Hazır
+Tarla Sensör
+Haritası
+Coğrafi ha-
+rita
+Folium heatmap –
+GPS koordinatlı
+sensör yoğunluğu
+Slayt 8 Hazır
+KPI Gösterge
+Paneli
+Gauge ve
+tablo
+Plotly gauge chart
+– hedef vs gerçekle-
+şen
+Slayt 9 Üretimde
+Proje Yol Ha-
+ritası
+Gantt / ti-
+meline
+Mermaid.js time-
+line – sprint ve
+milestone görü-
+nümü
+Slayt 10 Taslak
+3.1 Tasarım Standartları
+•Renk paleti:Birincil #2C3E6B (lacivert), vurgu #1A7A4A (yeşil), uyarı #D97706
+(turuncu), hata #DC2626 (kırmızı).
+•Tipografi:Başlıklar Montserrat Bold 28pt, gövde metin Inter Regular 18pt, kod
+blokları JetBrains Mono 14pt.
+•Grafik boyutu:Tüm görseller 1920x1080 (16:9) çözünürlükte PNG olarak dışa
+aktarılacak.
+•Animasyon:Slayt geçişleri yalnızca Fade (0.3 sn); içerik animasyonu sadece kilit
+veri noktalarında kullanılacak.
+3
+--- Page 4 ---
+4 Proje KPI Sonuçları
+Sunumun 9. slaytında gösterilecek KPI tablosu; başlangıç baseline, hedef ve gerçekleşen
+değerleri karşılaştırmaktadır. 7 KPI’dan 6’sı hedefi aşmıştır.
+KPI GöstergesiBaşlangıç Hedef Gerçekleşen Sonuç
+Sulama kararı doğru-
+luğu (F1)
+0.72 0.90 0.893 Yakın
+Mahsul verim tah-
+mini (R2)
+0.61 0.85 0.871 Aşıldı
+Anomali tespit hassa-
+siyeti (F1)
+0.55 0.80 0.812 Aşıldı
+API yanıt süresi P95
+(ms)
+420 ms < 200 ms 147 ms Aşıldı
+Sensör veri kalitesi
+(%)
+%78 > %95 %96.4 Aşıldı
+Sprint tamamlanma
+oranı (%)
+%70 > %85 %91 Aşıldı
+Su tüketimi tasarrufu
+(%)
+Baseline > %20 %23.7 Aşıldı
+4.1 Öne Çıkan Başarılar
+•Su tüketimi tasarrufu %23.7 ile hedefin %18.5 üzerinde gerçekleşti; yıllık 340 ton su
+tasarrufu sağlandı.
+•APIyanıtsüresi147msile200mshedefinin%26.5altındakaldı;sistemkapasitesinin
+3x üzerinde yük taşıyabildi.
+•Sensör veri kalitesi %96.4 ile %95 hedefini geçti; IoT veri pipeline güvenilirliği doğ-
+rulandı.
+5 Sunum Hazırlık Takvimi
+Sunum gününe kadar 7 günlük hazırlık planı aşağıdaki adımları kapsamaktadır.
+GünAktivite Detay Sorumlu Durum
+Gün 1İçerik taslağı Slayt iskeletinin oluş-
+turulması, içerik dağı-
+lımı onayı
+PM + Tüm
+Ekip
+Tamamlandı
+Gün 2Görsel üre-
+timi
+Grafik, diyagram ve
+haritaların hazırlan-
+ması
+AI + Backend Devam
+Ediyor
+4
+--- Page 5 ---
+GünAktivite Detay Sorumlu Durum
+Gün 3Slayt tasarımı PowerPoint şablonu,
+renk paleti, tipografi
+standartları
+UX Tasarımcı Planlandı
+Gün 4Demo hazır-
+lığı
+Canlı demo senaryosu,
+yedek ekran kaydı ha-
+zırlığı
+DevOps +
+PM
+Planlandı
+Gün 5Prova Tam prova (45 dk),
+süre kontrolü, geri bil-
+dirim turu
+Tüm Ekip Planlandı
+Gün 6Final reviz-
+yonu
+Prova geri bildirim-
+leri uygulanır, teknik
+kontrol
+PM Planlandı
+Gün 7Sunum günü Ekipman testi, yedek
+laptop, online katılım
+bağlantısı
+Tüm Ekip Planlandı
+5.1 Prova Checklist
+•Slayt geçişleri ve animasyonlar doğru sırada çalışıyor mu?
+•Canlı demo ortamı (staging) hazır ve internet bağlantısından bağımsız çalışabiliyor
+mu?
+•Yedek ekran kaydı (MP4) ve yedek PDF sunum hazırlandı mı?
+•Her konuşmacı kendi slayt bölümü için süre limitine uyuyor mu?
+•Soru-Cevap oturumu için olası zor sorular ve yanıtları hazırlandı mı?
+6 Sonraki Adımlar – Proje Yol Haritası
+Sunumun son slaytında aktarılacak kısa/orta/uzun vadeli yol haritası aşağıdaki hedefleri
+kapsamaktadır.
+DönemZaman Çerçe-
+vesi
+Hedefler Başarı Kriteri
+Kısa
+Vade
+0–3 Ay LSTM modeli iyileştirmesi,
+SVM yerine XGBoost ta-
+banlı hastalık tespiti, mobil
+uygulama beta yayını
+F1 > 0.85, 50
+beta kullanıcı
+Orta
+Vade
+3–9 Ay Çoklu arazi desteği, federe
+öğrenme altyapısı, hava du-
+rumu API genişletmesi
+10 arazi, %95
+doğruluk
+5
+--- Page 6 ---
+DönemZaman Çerçe-
+vesi
+Hedefler Başarı Kriteri
+Uzun
+Vade
+9–18 Ay Drone görüntü entegras-
+yonu, karbon ayak izi
+modülü, ulusal ölçek pilot
+Ulusal tarım ba-
+kanlığı ortaklığı
+7 Sunum Lojistiği ve Teknik Hazırlık
+KategoriGereksinim Sorumlu / Not
+DonanımProjeksiyon ve yedek HDMI
+adaptör (USB-C, mini DP)
+PM – donanım 1 gün önce
+test edilir
+YazılımPowerPoint 2021+, Chrome
+(demo), VS Code (canlı
+kod)
+DevOps – tüm yazılımlar
+sunum laptopuna kurulu
+AğFiber bağlantı ve 4G yedek
+hotspot; VPN kapalı tutul-
+malı
+DevOps – demo ortamı off-
+line modda da çalışır
+KayıtOBS Studio ile sunum kaydı
+(1080p, AAC ses)
+PM – kayıt paydaşlara son-
+radan paylaşılacak
+Online Ka-
+tılım
+Zoom/Teams bağlantısı, ek-
+ran paylaşımı testi
+PM – 30 dk önce bağlantı
+testi yapılır
+Bu belge Proje Yönetim Ofisi tarafından hazırlanmıştır. — Akıllı Tarım Yönetim
+Sistemi | Versiyon 1.0 | Mayıs 2025
+6
