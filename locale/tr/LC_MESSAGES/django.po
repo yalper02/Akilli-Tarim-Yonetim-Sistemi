@@ -1,0 +1,108 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: ATYS 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-03 23:00+0300\n"
+"PO-Revision-Date: 2026-05-03 23:00+0300\n"
+"Last-Translator: ATYS Team\n"
+"Language-Team: Turkish\n"
+"Language: tr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Dashboard"
+msgstr "Yönetim Paneli"
+
+msgid "LIVE TELEMETRY"
+msgstr "CANLI TELEMETRİ"
+
+msgid "Ambient Temperature"
+msgstr "Ortam Sıcaklığı"
+
+msgid "Soil Moisture"
+msgstr "Toprak Nemi"
+
+msgid "START IRRIGATION"
+msgstr "SULAMAYI BAŞLAT"
+
+msgid "Sensor Trend Analysis"
+msgstr "Sensör Trend Analizi"
+
+msgid "Temperature"
+msgstr "Sıcaklık"
+
+msgid "Moisture"
+msgstr "Nem"
+
+msgid "System Logs"
+msgstr "Sistem Kayıtları"
+
+msgid "PUMP ACTIVE..."
+msgstr "POMPA AKTİF..."
+
+msgid "Critical soil moisture detected!"
+msgstr "Kritik toprak nemi seviyesi!"
+
+msgid "Manual Irrigation Started"
+msgstr "Manuel Sulama Başlatıldı"
+
+msgid "Irrigation started."
+msgstr "Sulama başlatıldı."
+
+msgid "Already irrigating."
+msgstr "Halihazırda sulama yapılıyor."
+
+msgid "Auto-irrigation triggered due to low moisture"
+msgstr "Düşük nem nedeniyle otomatik sulama tetiklendi"
+
+msgid "Irrigation Completed"
+msgstr "Sulama Tamamlandı"
+
+msgid "INFO"
+msgstr "BİLGİ"
+
+msgid "WARNING"
+msgstr "UYARI"
+
+msgid "SUCCESS"
+msgstr "BAŞARILI"
+
+msgid "System Avg Temp"
+msgstr "SİSTEM ORT. SICAKLIK"
+
+msgid "System Avg Moisture"
+msgstr "SİSTEM ORT. NEM"
+
+msgid "Active Zones (Parcels)"
+msgstr "Aktif Parseller (Bölgeler)"
+
+msgid "IRRIGATE THIS ZONE"
+msgstr "BU PARSELİ SULA"
+
+msgid "Temp"
+msgstr "Sıcaklık"
+
+msgid "Thresh"
+msgstr "Eşik"
+
+msgid "Download Report"
+msgstr "Raporu İndir"
+
+msgid "Mevcut Eşik"
+msgstr "Mevcut Eşik"
+
+msgid "için Sulama Başlatıldı"
+msgstr "için Sulama Başlatıldı"
+
+msgid "için Sulama Tamamlandı"
+msgstr "için Sulama Tamamlandı"
+
+msgid "bölgesinde kritik nem seviyesi!"
+msgstr "bölgesinde kritik nem seviyesi!"
+
+msgid "Eşik değeri güncellendi"
+msgstr "Eşik değeri güncellendi"
+
+msgid "Profil güncellendi"
+msgstr "Profil güncellendi"

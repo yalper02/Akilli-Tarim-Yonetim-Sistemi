@@ -1,0 +1,27 @@
+============================================================
+ATYS (AKILLI TARIM YÖNETİM SİSTEMİ) SİSTEM GEREKSİNİMLERİ
+============================================================
+
+1. DİL VE ÇALIŞMA ORTAMI:
+   - Python 3.10 veya üzeri (Sistem mantığı ve scriptler için)
+
+2. VERİTABANI YÖNETİMİ:
+   - PostgreSQL 14+ (Kurumsal veri depolama katmanı)
+   - pgAdmin 4 (Veritabanı görsel yönetim arayüzü)
+
+3. HABERLEŞME PROTOKOLÜ:
+   - Mosquitto MQTT Broker (Mesaj iletim merkezi)
+   - MQTT Explorer (Telemetri verisi izleme ve hata ayıklama)
+
+4. GELİŞTİRME ARAÇLARI:
+   - Visual Studio Code (Önerilen IDE)
+   - Git (Versiyon kontrolü için)
+
+5. ALARM VE BİLDİRİM:
+   - Telegram Desktop (Bot bildirimlerini anlık takip etmek için)
+
+============================================================
+NOT: baslat.bat dosyasını çalıştırmadan önce PostgreSQL ve 
+Mosquitto servislerinin "Çalışıyor" durumunda olduğundan 
+emin olun.
+============================================================
